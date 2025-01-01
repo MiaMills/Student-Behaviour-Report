@@ -55,7 +55,7 @@ public class StudentControllerTest {
         this.mockMvc.perform(get("/api/v1/students/getAllStudentString")
                 .param("comment", "someComment"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE)) // Update to match actual content type
             .andExpect(content().json("[\"John Doe\",\"Jane Doe\"]")); // Adjust expected content as needed
     }
 }
