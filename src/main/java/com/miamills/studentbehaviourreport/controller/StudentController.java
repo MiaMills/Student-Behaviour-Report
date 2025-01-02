@@ -58,6 +58,19 @@ public class StudentController {
         return ResponseEntity.noContent().build();
     }
 
+     // DELETE a student by name
+     @DeleteMapping("/deleteByName")
+     public ResponseEntity<Void> deleteStudentByName(@RequestParam String name) {
+         List<Student> students = studentRepository.findByStudentName(name);
+         if (!students.isEmpty()) {
+             students.forEach(student -> studentRepository.deleteById(student.getStudentId()));
+             return ResponseEntity.noContent().build();
+         } else {
+                     return ResponseEntity.notFound().build();
+                 }
+             }
+
+
     // GET all student names filtered by teacher comment
     @GetMapping("/getAllStudentString")
     public ResponseEntity<List<String>> getAllStudentString(@RequestParam String comment) {
@@ -67,4 +80,21 @@ public class StudentController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(studentNames);
     }
+
+    // POST to create a new student
+    @PostMapping
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+        Student savedStudent = studentRepository.save(student);
+        return ResponseEntity.ok(savedStudent);
+    }
+
+      // POST to create a new teacher comment for a student
+      @PostMapping("/{id}/addTeacherComment")
+      public ResponseEntity<Student> addTeacherComment(@PathVariable String id, @RequestBody String comment) {
+          Student student = studentRepository.findById(id)
+                  .orElseThrow(() -> new RuntimeException("Student not found"));
+          student.setTeacherComment(comment);
+          Student updatedStudent = studentRepository.save(student);
+          return ResponseEntity.ok(updatedStudent);
+      }
 }
