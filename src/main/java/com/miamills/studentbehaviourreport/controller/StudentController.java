@@ -70,7 +70,6 @@ public class StudentController {
                  }
              }
 
-
     // GET all student names filtered by teacher comment
     @GetMapping("/getAllStudentString")
     public ResponseEntity<List<String>> getAllStudentString(@RequestParam String comment) {

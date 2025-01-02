@@ -17,7 +17,6 @@ public class StudentService {
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
-
     // Method to update a student's teacher comment
     public Student updateStudentComment(String studentId, String newCommentString) {
         Optional<Student> optionalStudent = studentRepository.findById(studentId);
