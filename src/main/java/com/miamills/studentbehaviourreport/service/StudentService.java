@@ -28,7 +28,6 @@ public class StudentService {
             throw new RuntimeException("Student not found with ID: " + studentId);
         }
     }
-
     // Method to find a student by their ID- RETRIEVE
     public Student findStudentById(String id) {
         return studentRepository.findById(id).orElse(null);
